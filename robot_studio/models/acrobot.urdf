@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<robot name="acrobot">
+  <material name="arm1">
+    <color rgba="0.85 0.20 0.20 1.0"/>
+  </material>
+  <material name="arm2">
+    <color rgba="0.25 0.55 0.95 1.0"/>
+  </material>
+
+  <link name="world"/>
+
+  <joint name="joint1" type="revolute">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <parent link="world"/>
+    <child link="link1"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="100.0" velocity="30.0"/>
+  </joint>
+
+  <link name="link1">
+    <inertial>
+      <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+      <mass value="2.0"/>
+      <inertia ixx="0.042" ixy="0.0" ixz="0.0" iyy="0.042" iyz="0.0" izz="0.002"/>
+    </inertial>
+    <visual name="v1">
+      <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="0.05" length="0.55"/>
+      </geometry>
+      <material name="arm1"/>
+    </visual>
+  </link>
+
+  <joint name="joint2" type="revolute">
+    <origin xyz="0 0 -0.5" rpy="0 0 0"/>
+    <parent link="link1"/>
+    <child link="link2"/>
+    <axis xyz="0 1 0"/>
+    <limit lower="-3.14" upper="3.14" effort="60.0" velocity="30.0"/>
+  </joint>
+
+  <link name="link2">
+    <inertial>
+      <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+      <mass value="1.0"/>
+      <inertia ixx="0.021" ixy="0.0" ixz="0.0" iyy="0.021" iyz="0.0" izz="0.001"/>
+    </inertial>
+    <visual name="v2">
+      <origin xyz="0 0 -0.25" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.35 0.07 0.5"/>
+      </geometry>
+      <material name="arm2"/>
+    </visual>
+  </link>
+</robot>
