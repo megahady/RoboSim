@@ -1,0 +1,177 @@
+<mujoco model="spider_mjcf">
+  <compiler angle="radian" coordinate="local" inertiafromgeom="true"/>
+  <option timestep="0.002" gravity="0 0 -9.81" integrator="implicitfast"/>
+  <size njmax="500" nconmax="200"/>
+
+  <default>
+    <joint damping="0.05" armature="0.001"/>
+    <geom contype="1" conaffinity="1" condim="3" friction="1 0.005 0.0001"/>
+    <default class="leg_link">
+      <geom type="box" rgba="0.7 0.7 0.7 1"/>
+    </default>
+  </default>
+
+  <asset>
+    <texture name="grid" type="2d" builtin="checker" width="512" height="512"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.15 0.2"/>
+    <material name="grid_mat" texture="grid" texrepeat="4 4" reflectance="0.1"/>
+  <texture type="skybox" builtin="flat" rgb1="1 1 1" rgb2="1 1 1" width="512" height="512"/>
+    <material name="body_mat" rgba="0.30 0.15 0.18 1"/>
+    <material name="coxa_mat" rgba="1.00 0.00 0.00 1"/>
+    <material name="femur_mat" rgba="1.00 0.75 0.00 1"/>
+    <material name="tibia_mat" rgba="0.02 0.02 0.02 1"/>
+    <material name="foot_mat" rgba="0.00 0.85 0.05 1"/>
+  </asset>
+
+  <worldbody>
+    <geom name="floor" type="plane" size="3 3 0.1" pos="0 0 0" material="grid_mat" contype="0" conaffinity="1"/>
+    <light pos="0 0 2" dir="0 0 -1" diffuse="0.8 0.8 0.8"/>
+    <light pos="1 1 2" dir="-0.5 -0.5 -1" diffuse="0.4 0.4 0.4"/>
+
+    <body name="base_link" pos="0 0 0.2">
+      <freejoint/>
+      <inertial pos="0 0 0" mass="1.8" diaginertia="0.0090 0.0140 0.0150"/>
+      <geom name="base_geom" type="box" size="0.20 0.10 0.075" material="body_mat"/>
+
+      <body name="FL_coxa" pos="0.10 0.10 -0.04" euler="0 0 1.0472">
+        <joint name="FL_coxa_joint" type="hinge" axis="0 0 1" range="-1.2 1.2"/>
+        <geom name="FL_coxa_geom" type="box" size="0.025 0.0175 0.0175" pos="0.025 0 0" material="coxa_mat"/>
+
+        <body name="FL_femur" pos="0.05 0 0">
+          <joint name="FL_femur_joint" type="hinge" axis="0 1 0" range="-0.3490658503988659 0.3490658503988659"/>
+          <geom name="FL_femur_geom" type="box" size="0.075 0.02 0.02" pos="0.075 0 -0.035" material="femur_mat"/>
+
+          <body name="FL_tibia" pos="0.15 0 -0.07">
+            <joint name="FL_tibia_joint" type="hinge" axis="0 1 0" range="-2.5 0.4"/>
+            <geom name="FL_tibia_geom" type="box" size="0.075 0.0175 0.0175" pos="0.075 0 -0.075" material="tibia_mat"/>
+
+            <body name="FL_foot" pos="0.15 0 -0.15">
+              <geom name="FL_foot_geom" type="box" size="0.025 0.0225 0.025" pos="0.025 0 -0.025" material="foot_mat"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="ML_coxa" pos="0.0 0.12 -0.04" euler="0 0 1.5708">
+        <joint name="ML_coxa_joint" type="hinge" axis="0 0 1" range="-1.2 1.2"/>
+        <geom name="ML_coxa_geom" type="box" size="0.025 0.0175 0.0175" pos="0.025 0 0" material="coxa_mat"/>
+
+        <body name="ML_femur" pos="0.05 0 0">
+          <joint name="ML_femur_joint" type="hinge" axis="0 1 0" range="-0.3490658503988659 0.3490658503988659"/>
+          <geom name="ML_femur_geom" type="box" size="0.075 0.02 0.02" pos="0.075 0 -0.035" material="femur_mat"/>
+
+          <body name="ML_tibia" pos="0.15 0 -0.07">
+            <joint name="ML_tibia_joint" type="hinge" axis="0 1 0" range="-2.5 0.4"/>
+            <geom name="ML_tibia_geom" type="box" size="0.075 0.0175 0.0175" pos="0.075 0 -0.075" material="tibia_mat"/>
+
+            <body name="ML_foot" pos="0.15 0 -0.15">
+              <geom name="ML_foot_geom" type="box" size="0.025 0.0225 0.025" pos="0.025 0 -0.025" material="foot_mat"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="RL_coxa" pos="-0.10 0.10 -0.04" euler="0 0 2.0944">
+        <joint name="RL_coxa_joint" type="hinge" axis="0 0 1" range="-1.2 1.2"/>
+        <geom name="RL_coxa_geom" type="box" size="0.025 0.0175 0.0175" pos="0.025 0 0" material="coxa_mat"/>
+
+        <body name="RL_femur" pos="0.05 0 0">
+          <joint name="RL_femur_joint" type="hinge" axis="0 1 0" range="-0.3490658503988659 0.3490658503988659"/>
+          <geom name="RL_femur_geom" type="box" size="0.075 0.02 0.02" pos="0.075 0 -0.035" material="femur_mat"/>
+
+          <body name="RL_tibia" pos="0.15 0 -0.07">
+            <joint name="RL_tibia_joint" type="hinge" axis="0 1 0" range="-2.5 0.4"/>
+            <geom name="RL_tibia_geom" type="box" size="0.075 0.0175 0.0175" pos="0.075 0 -0.075" material="tibia_mat"/>
+
+            <body name="RL_foot" pos="0.15 0 -0.15">
+              <geom name="RL_foot_geom" type="box" size="0.025 0.0225 0.025" pos="0.025 0 -0.025" material="foot_mat"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="FR_coxa" pos="0.10 -0.10 -0.04" euler="0 0 -1.0472">
+        <joint name="FR_coxa_joint" type="hinge" axis="0 0 1" range="-1.2 1.2"/>
+        <geom name="FR_coxa_geom" type="box" size="0.025 0.0175 0.0175" pos="0.025 0 0" material="coxa_mat"/>
+
+        <body name="FR_femur" pos="0.05 0 0">
+          <joint name="FR_femur_joint" type="hinge" axis="0 1 0" range="-0.3490658503988659 0.3490658503988659"/>
+          <geom name="FR_femur_geom" type="box" size="0.075 0.02 0.02" pos="0.075 0 -0.035" material="femur_mat"/>
+
+          <body name="FR_tibia" pos="0.15 0 -0.07">
+            <joint name="FR_tibia_joint" type="hinge" axis="0 1 0" range="-2.5 0.4"/>
+            <geom name="FR_tibia_geom" type="box" size="0.075 0.0175 0.0175" pos="0.075 0 -0.075" material="tibia_mat"/>
+
+            <body name="FR_foot" pos="0.15 0 -0.15">
+              <geom name="FR_foot_geom" type="box" size="0.025 0.0225 0.025" pos="0.025 0 -0.025" material="foot_mat"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="MR_coxa" pos="0.0 -0.12 -0.04" euler="0 0 -1.5708">
+        <joint name="MR_coxa_joint" type="hinge" axis="0 0 1" range="-1.2 1.2"/>
+        <geom name="MR_coxa_geom" type="box" size="0.025 0.0175 0.0175" pos="0.025 0 0" material="coxa_mat"/>
+
+        <body name="MR_femur" pos="0.05 0 0">
+          <joint name="MR_femur_joint" type="hinge" axis="0 1 0" range="-0.3490658503988659 0.3490658503988659"/>
+          <geom name="MR_femur_geom" type="box" size="0.075 0.02 0.02" pos="0.075 0 -0.035" material="femur_mat"/>
+
+          <body name="MR_tibia" pos="0.15 0 -0.07">
+            <joint name="MR_tibia_joint" type="hinge" axis="0 1 0" range="-2.5 0.4"/>
+            <geom name="MR_tibia_geom" type="box" size="0.075 0.0175 0.0175" pos="0.075 0 -0.075" material="tibia_mat"/>
+
+            <body name="MR_foot" pos="0.15 0 -0.15">
+              <geom name="MR_foot_geom" type="box" size="0.025 0.0225 0.025" pos="0.025 0 -0.025" material="foot_mat"/>
+            </body>
+          </body>
+        </body>
+      </body>
+
+      <body name="RR_coxa" pos="-0.10 -0.10 -0.04" euler="0 0 -2.0944">
+        <joint name="RR_coxa_joint" type="hinge" axis="0 0 1" range="-1.2 1.2"/>
+        <geom name="RR_coxa_geom" type="box" size="0.025 0.0175 0.0175" pos="0.025 0 0" material="coxa_mat"/>
+
+        <body name="RR_femur" pos="0.05 0 0">
+          <joint name="RR_femur_joint" type="hinge" axis="0 1 0" range="-0.3490658503988659 0.3490658503988659"/>
+          <geom name="RR_femur_geom" type="box" size="0.075 0.02 0.02" pos="0.075 0 -0.035" material="femur_mat"/>
+
+          <body name="RR_tibia" pos="0.15 0 -0.07">
+            <joint name="RR_tibia_joint" type="hinge" axis="0 1 0" range="-2.5 0.4"/>
+            <geom name="RR_tibia_geom" type="box" size="0.075 0.0175 0.0175" pos="0.075 0 -0.075" material="tibia_mat"/>
+
+            <body name="RR_foot" pos="0.15 0 -0.15">
+              <geom name="RR_foot_geom" type="box" size="0.025 0.0225 0.025" pos="0.025 0 -0.025" material="foot_mat"/>
+            </body>
+          </body>
+        </body>
+      </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="FL_coxa_act" joint="FL_coxa_joint" kp="20" kv="2" ctrlrange="-1.2 1.2"/>
+    <position name="FL_femur_act" joint="FL_femur_joint" kp="20" kv="2" ctrlrange="-0.3490658503988659 0.3490658503988659"/>
+    <position name="FL_tibia_act" joint="FL_tibia_joint" kp="20" kv="2" ctrlrange="-2.5 0.4"/>
+
+    <position name="ML_coxa_act" joint="ML_coxa_joint" kp="20" kv="2" ctrlrange="-1.2 1.2"/>
+    <position name="ML_femur_act" joint="ML_femur_joint" kp="20" kv="2" ctrlrange="-0.3490658503988659 0.3490658503988659"/>
+    <position name="ML_tibia_act" joint="ML_tibia_joint" kp="20" kv="2" ctrlrange="-2.5 0.4"/>
+
+    <position name="RL_coxa_act" joint="RL_coxa_joint" kp="20" kv="2" ctrlrange="-1.2 1.2"/>
+    <position name="RL_femur_act" joint="RL_femur_joint" kp="20" kv="2" ctrlrange="-0.3490658503988659 0.3490658503988659"/>
+    <position name="RL_tibia_act" joint="RL_tibia_joint" kp="20" kv="2" ctrlrange="-2.5 0.4"/>
+
+    <position name="FR_coxa_act" joint="FR_coxa_joint" kp="20" kv="2" ctrlrange="-1.2 1.2"/>
+    <position name="FR_femur_act" joint="FR_femur_joint" kp="20" kv="2" ctrlrange="-0.3490658503988659 0.3490658503988659"/>
+    <position name="FR_tibia_act" joint="FR_tibia_joint" kp="20" kv="2" ctrlrange="-2.5 0.4"/>
+
+    <position name="MR_coxa_act" joint="MR_coxa_joint" kp="20" kv="2" ctrlrange="-1.2 1.2"/>
+    <position name="MR_femur_act" joint="MR_femur_joint" kp="20" kv="2" ctrlrange="-0.3490658503988659 0.3490658503988659"/>
+    <position name="MR_tibia_act" joint="MR_tibia_joint" kp="20" kv="2" ctrlrange="-2.5 0.4"/>
+
+    <position name="RR_coxa_act" joint="RR_coxa_joint" kp="20" kv="2" ctrlrange="-1.2 1.2"/>
+    <position name="RR_femur_act" joint="RR_femur_joint" kp="20" kv="2" ctrlrange="-0.3490658503988659 0.3490658503988659"/>
+    <position name="RR_tibia_act" joint="RR_tibia_joint" kp="20" kv="2" ctrlrange="-2.5 0.4"/>
+  </actuator>
+</mujoco>
