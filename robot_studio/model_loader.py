@@ -334,14 +334,16 @@ def urdf_to_mjcf(path: str, timestep: float = 0.005, damping: float = 0.05, arma
     out = ['<mujoco model="%s">' % name]
     out.append('<compiler angle="radian" coordinate="local" meshdir="%s"/>' % base)
     out.append('<option timestep="%s" integrator="Euler"/>' % timestep)
+    out.append('<asset>')
+    out.append('  <texture name="floor_grid" type="2d" builtin="checker" width="512" height="512"'
+               ' rgb1="0.93 0.95 0.98" rgb2="0.72 0.80 0.90"/>' )
+    out.append('  <material name="floor_grid_mat" texture="floor_grid" texrepeat="18 18" rgba="1 1 1 1" reflectance="0.18" shininess="0.25"/>')
+    out.extend("  " + m for m in meshes)
+    out.append('</asset>')
     if damping > 0.0 or armature > 0.0:
         out.append("<default>")
         out.append('  <joint damping="%s" armature="%s"/>' % (damping, armature))
         out.append("</default>")
-    if meshes:
-        out.append("<asset>")
-        out.extend("  " + m for m in meshes)
-        out.append("</asset>")
 
     seen = set()
     body_buf = []
@@ -401,10 +403,12 @@ def urdf_to_mjcf(path: str, timestep: float = 0.005, damping: float = 0.05, arma
                 emit(j["child"], j, depth + 1)
             body_buf.append(pad + "</body>")
 
+    if add_ground if add_ground is not None else floating:
+        out.append('<visual><rgba haze="0.78 0.86 0.96 1.0" fog="0.78 0.86 0.96 1.0"/></visual>')
     out.append("<worldbody>")
     if add_ground if add_ground is not None else floating:
         out.append('  <geom name="__ground" type="plane" size="6 6 0.02" pos="0 0 0" '
-                   'rgba="0.28 0.31 0.36 0.55" friction="1.2 0.02 0.001"/>')
+                   'material="floor_grid_mat" rgba="0.96 0.97 0.99 1.0" friction="1.2 0.02 0.001"/>')
     emit(root_link, None, 1)
     for j in children.get(root_link, []):
         emit(j["child"], j, 1)
@@ -426,13 +430,33 @@ def urdf_to_mjcf(path: str, timestep: float = 0.005, damping: float = 0.05, arma
     return "\n".join(out) + "\n"
 
 
+PALE_BLUE = np.array([0.78, 0.86, 0.96, 1.0], dtype=np.float32)
+
+
+def apply_scene_style(model: mujoco.MjModel) -> mujoco.MjModel:
+    """Force the viewer to use the same pale-blue horizon/ground styling for all runtime loads."""
+    if hasattr(model, "vis"):
+        if hasattr(model.vis, "rgba"):
+            model.vis.rgba.haze = PALE_BLUE.copy()
+            model.vis.rgba.fog = PALE_BLUE.copy()
+        if hasattr(model.vis, "map"):
+            model.vis.map.haze = 0.78
+            model.vis.map.fogstart = 0.2
+            model.vis.map.fogend = 20.0
+        if hasattr(model.vis, "headlight"):
+            model.vis.headlight.ambient = np.array([0.15, 0.15, 0.15], dtype=np.float32)
+            model.vis.headlight.diffuse = np.array([0.55, 0.55, 0.65], dtype=np.float32)
+            model.vis.headlight.specular = np.array([0.2, 0.2, 0.2], dtype=np.float32)
+    return model
+
+
 def load_model_urdf(path: str) -> mujoco.MjModel:
     xml_text = urdf_to_mjcf(path)
     fd, tmp = tempfile.mkstemp(suffix=".xml")
     try:
         with os.fdopen(fd, "w", encoding="utf-8") as fh:
             fh.write(xml_text)
-        return mujoco.MjModel.from_xml_path(tmp)
+        return apply_scene_style(mujoco.MjModel.from_xml_path(tmp))
     finally:
         try:
             os.unlink(tmp)
@@ -476,7 +500,7 @@ def load_model(path: str) -> mujoco.MjModel:
         raise ModelLoadError("Model file not found: %s" % path)
     ext = path.lower().rsplit(".", 1)[-1]
     if ext == "xml":
-        return mujoco.MjModel.from_xml_path(path)
+        return apply_scene_style(mujoco.MjModel.from_xml_path(path))
     if ext == "urdf":
         return load_model_urdf(path)
     raise ModelLoadError("Unsupported model extension: .%s (use .urdf or .xml)" % ext)

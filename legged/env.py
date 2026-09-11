@@ -141,12 +141,21 @@ class LeggedEnv:
         for j in range(m.njnt):
             name = mujoco.mj_id2name(m, mujoco.mjtObj.mjOBJ_JOINT, j) or ""
             if name.endswith("_femur_joint"):
-                d.qpos[m.jnt_qposadr[j]] = -0.8
+                d.qpos[m.jnt_qposadr[j]] = -0.95
             elif name.endswith("_tibia_joint"):
-                d.qpos[m.jnt_qposadr[j]] = 0.64
+                d.qpos[m.jnt_qposadr[j]] = 0.82
             elif name.endswith("_coxa_joint"):
-                # group A faces +; group B faces - (symmetric fore/aft)
-                d.qpos[m.jnt_qposadr[j]] = 0.15 if name.startswith(("FL", "ML", "RL")) else -0.15
+                # front-left/front-right = ±90°, rear pair flipped by 180°
+                if name.startswith("FL"):
+                    d.qpos[m.jnt_qposadr[j]] = 1.5708
+                elif name.startswith("FR"):
+                    d.qpos[m.jnt_qposadr[j]] = -1.5708
+                elif name.startswith("RL"):
+                    d.qpos[m.jnt_qposadr[j]] = -1.5708
+                elif name.startswith("RR"):
+                    d.qpos[m.jnt_qposadr[j]] = 1.5708
+                else:
+                    d.qpos[m.jnt_qposadr[j]] = 0.0
 
     # ------------------------------------------------------------------ observe
     def observe(self) -> dict:
@@ -177,11 +186,15 @@ class LeggedEnv:
         return obs
 
     # ------------------------------------------------------------------ step
-    def step(self, controller) -> dict:
+    def step(self, controller=None) -> dict:
         """One control period. Controller decides at the period start, its
-        torque is held for ``n_sub`` physics substeps."""
+        torque is held for ``n_sub`` physics substeps.
+
+        ``controller=None`` applies zero torque — used for the "settle"
+        phase where the robot just drops onto the floor under gravity.
+        """
         m, d = self.model, self.data
-        tau = controller.step(m, d, self.observe())
+        tau = controller.step(m, d, self.observe()) if controller is not None else np.zeros(m.nu)
         for i in range(self.n_sub):
             mujoco.mj_step1(m, d)                     # nonlinear dynamics (caches bias)
             if i == 0:

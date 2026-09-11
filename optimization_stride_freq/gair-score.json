@@ -1,0 +1,79 @@
+{
+  "saved_at": "2026-09-09T14:32:49.723842+00:00",
+  "best": {
+    "iteration": 5,
+    "stride_freq_hz": 1.2,
+    "score": -0.020236594123139717,
+    "metrics": {
+      "v_mean": -0.17777863128488378,
+      "max_tilt_deg": 13.738014005369767,
+      "success": true,
+      "falls": 0
+    },
+    "seed_results": [
+      {
+        "stride_freq_hz": 1.2,
+        "score": -0.020236594123139717,
+        "metrics": {
+          "v_mean": -0.17777863128488375,
+          "v_rms_err": 0.46140382432419025,
+          "v_side_rms": 0.23376351918960156,
+          "cmd": 0.2,
+          "max_tilt_deg": 13.738014005369767,
+          "mean_tilt_deg": 5.073730471598862,
+          "height_std": 0.06433922160162368,
+          "fallen": false,
+          "mean_energy": 10.540148702349203,
+          "ctrl_rms": 53.01882192042805,
+          "cot": 502.11009065252694,
+          "success": true,
+          "runs": 1,
+          "falls": 0,
+          "fell": false
+        }
+      },
+      {
+        "stride_freq_hz": 1.2,
+        "score": -0.020236594123139717,
+        "metrics": {
+          "v_mean": -0.17777863128488375,
+          "v_rms_err": 0.46140382432419025,
+          "v_side_rms": 0.23376351918960156,
+          "cmd": 0.2,
+          "max_tilt_deg": 13.738014005369767,
+          "mean_tilt_deg": 5.073730471598862,
+          "height_std": 0.06433922160162368,
+          "fallen": false,
+          "mean_energy": 10.540148702349203,
+          "ctrl_rms": 53.01882192042805,
+          "cot": 502.11009065252694,
+          "success": true,
+          "runs": 1,
+          "falls": 0,
+          "fell": false
+        }
+      },
+      {
+        "stride_freq_hz": 1.2,
+        "score": -0.020236594123139717,
+        "metrics": {
+          "v_mean": -0.17777863128488375,
+          "v_rms_err": 0.46140382432419025,
+          "v_side_rms": 0.23376351918960156,
+          "cmd": 0.2,
+          "max_tilt_deg": 13.738014005369767,
+          "mean_tilt_deg": 5.073730471598862,
+          "height_std": 0.06433922160162368,
+          "fallen": false,
+          "mean_energy": 10.540148702349203,
+          "ctrl_rms": 53.01882192042805,
+          "cot": 502.11009065252694,
+          "success": true,
+          "runs": 1,
+          "falls": 0,
+          "fell": false
+        }
+      }
+    ]
+  }
+}

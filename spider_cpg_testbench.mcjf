@@ -1,0 +1,119 @@
+<mujoco model="spider_cpg_testbench">
+  <compiler angle="radian" inertiafromgeom="auto"/>
+  <option gravity="0 0 -9.81" timestep="0.002" integrator="RK4"/>
+
+  <asset>
+    <material name="body_mat" rgba="0.25 0.55 0.95 1"/>
+  </asset>
+
+  <default>
+    <joint damping="0.05" armature="0.01" stiffness="0.0"/>
+    <geom condim="3" friction="1.0 0.05 0.01" density="1000"/>
+  </default>
+
+  <worldbody>
+    <body name="root" pos="0 0 0.35">
+      <inertial pos="0 0 0" mass="1.6" diaginertia="0.2 0.2 0.2"/>
+      <geom type="box" size="0.18 0.12 0.04" material="body_mat"/>
+      <body name="leg_0_base" pos="-0.147224 -0.085000 0.0" euler="0 0 -2.617994">
+      <joint name="leg_0_yaw" type="hinge" axis="0 0 1" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+      <geom type="capsule" fromto="0 0 0 0.050000 0 0" size="0.010" rgba="0.72 0.72 0.72 1"/>
+      <body name="leg_0_femur" pos="0.050000 0 0">
+        <joint name="leg_0_pitch" type="hinge" axis="0 1 0" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+        <geom type="capsule" fromto="0 0 0 0 0.100000 0" size="0.008" rgba="0.68 0.68 0.68 1"/>
+        <body name="leg_0_tibia" pos="0 0.100000 0">
+          <joint name="leg_0_knee" type="hinge" axis="0 1 0" range="-2.0944 0.0" damping="0.03" stiffness="0.0"/>
+          <geom type="capsule" fromto="0 0 0 0 0.120000 0" size="0.007" rgba="0.62 0.62 0.62 1"/>
+          <site name="leg_0_foot" pos="0 0.120000 0" size="0.004"/>
+        </body>
+      </body>
+    </body>
+<body name="leg_1_base" pos="0.000000 -0.170000 0.0" euler="0 0 -1.570796">
+      <joint name="leg_1_yaw" type="hinge" axis="0 0 1" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+      <geom type="capsule" fromto="0 0 0 0.050000 0 0" size="0.010" rgba="0.72 0.72 0.72 1"/>
+      <body name="leg_1_femur" pos="0.050000 0 0">
+        <joint name="leg_1_pitch" type="hinge" axis="0 1 0" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+        <geom type="capsule" fromto="0 0 0 0 0.100000 0" size="0.008" rgba="0.68 0.68 0.68 1"/>
+        <body name="leg_1_tibia" pos="0 0.100000 0">
+          <joint name="leg_1_knee" type="hinge" axis="0 1 0" range="-2.0944 0.0" damping="0.03" stiffness="0.0"/>
+          <geom type="capsule" fromto="0 0 0 0 0.120000 0" size="0.007" rgba="0.62 0.62 0.62 1"/>
+          <site name="leg_1_foot" pos="0 0.120000 0" size="0.004"/>
+        </body>
+      </body>
+    </body>
+<body name="leg_2_base" pos="0.147224 -0.085000 0.0" euler="0 0 -0.523599">
+      <joint name="leg_2_yaw" type="hinge" axis="0 0 1" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+      <geom type="capsule" fromto="0 0 0 0.050000 0 0" size="0.010" rgba="0.72 0.72 0.72 1"/>
+      <body name="leg_2_femur" pos="0.050000 0 0">
+        <joint name="leg_2_pitch" type="hinge" axis="0 1 0" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+        <geom type="capsule" fromto="0 0 0 0 0.100000 0" size="0.008" rgba="0.68 0.68 0.68 1"/>
+        <body name="leg_2_tibia" pos="0 0.100000 0">
+          <joint name="leg_2_knee" type="hinge" axis="0 1 0" range="-2.0944 0.0" damping="0.03" stiffness="0.0"/>
+          <geom type="capsule" fromto="0 0 0 0 0.120000 0" size="0.007" rgba="0.62 0.62 0.62 1"/>
+          <site name="leg_2_foot" pos="0 0.120000 0" size="0.004"/>
+        </body>
+      </body>
+    </body>
+<body name="leg_3_base" pos="0.147224 0.085000 0.0" euler="0 0 0.523599">
+      <joint name="leg_3_yaw" type="hinge" axis="0 0 1" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+      <geom type="capsule" fromto="0 0 0 0.050000 0 0" size="0.010" rgba="0.72 0.72 0.72 1"/>
+      <body name="leg_3_femur" pos="0.050000 0 0">
+        <joint name="leg_3_pitch" type="hinge" axis="0 1 0" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+        <geom type="capsule" fromto="0 0 0 0 0.100000 0" size="0.008" rgba="0.68 0.68 0.68 1"/>
+        <body name="leg_3_tibia" pos="0 0.100000 0">
+          <joint name="leg_3_knee" type="hinge" axis="0 1 0" range="-2.0944 0.0" damping="0.03" stiffness="0.0"/>
+          <geom type="capsule" fromto="0 0 0 0 0.120000 0" size="0.007" rgba="0.62 0.62 0.62 1"/>
+          <site name="leg_3_foot" pos="0 0.120000 0" size="0.004"/>
+        </body>
+      </body>
+    </body>
+<body name="leg_4_base" pos="0.000000 0.170000 0.0" euler="0 0 1.570796">
+      <joint name="leg_4_yaw" type="hinge" axis="0 0 1" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+      <geom type="capsule" fromto="0 0 0 0.050000 0 0" size="0.010" rgba="0.72 0.72 0.72 1"/>
+      <body name="leg_4_femur" pos="0.050000 0 0">
+        <joint name="leg_4_pitch" type="hinge" axis="0 1 0" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+        <geom type="capsule" fromto="0 0 0 0 0.100000 0" size="0.008" rgba="0.68 0.68 0.68 1"/>
+        <body name="leg_4_tibia" pos="0 0.100000 0">
+          <joint name="leg_4_knee" type="hinge" axis="0 1 0" range="-2.0944 0.0" damping="0.03" stiffness="0.0"/>
+          <geom type="capsule" fromto="0 0 0 0 0.120000 0" size="0.007" rgba="0.62 0.62 0.62 1"/>
+          <site name="leg_4_foot" pos="0 0.120000 0" size="0.004"/>
+        </body>
+      </body>
+    </body>
+<body name="leg_5_base" pos="-0.147224 0.085000 0.0" euler="0 0 2.617994">
+      <joint name="leg_5_yaw" type="hinge" axis="0 0 1" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+      <geom type="capsule" fromto="0 0 0 0.050000 0 0" size="0.010" rgba="0.72 0.72 0.72 1"/>
+      <body name="leg_5_femur" pos="0.050000 0 0">
+        <joint name="leg_5_pitch" type="hinge" axis="0 1 0" range="-1.5708 1.5708" damping="0.03" stiffness="0.0"/>
+        <geom type="capsule" fromto="0 0 0 0 0.100000 0" size="0.008" rgba="0.68 0.68 0.68 1"/>
+        <body name="leg_5_tibia" pos="0 0.100000 0">
+          <joint name="leg_5_knee" type="hinge" axis="0 1 0" range="-2.0944 0.0" damping="0.03" stiffness="0.0"/>
+          <geom type="capsule" fromto="0 0 0 0 0.120000 0" size="0.007" rgba="0.62 0.62 0.62 1"/>
+          <site name="leg_5_foot" pos="0 0.120000 0" size="0.004"/>
+        </body>
+      </body>
+    </body>
+    </body>
+  </worldbody>
+
+  <actuator>
+    <position name="leg_0_yaw_act" joint="leg_0_yaw" kp="70.0" ctrlrange="-1.57 1.57"/>
+    <position name="leg_0_pitch_act" joint="leg_0_pitch" kp="70.0" ctrlrange="-2.09 2.09"/>
+    <position name="leg_0_knee_act" joint="leg_0_knee" kp="70.0" ctrlrange="-2.09 2.09"/>
+    <position name="leg_1_yaw_act" joint="leg_1_yaw" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_1_pitch_act" joint="leg_1_pitch" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_1_knee_act" joint="leg_1_knee" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_2_yaw_act" joint="leg_2_yaw" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_2_pitch_act" joint="leg_2_pitch" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_2_knee_act" joint="leg_2_knee" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_3_yaw_act" joint="leg_3_yaw" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_3_pitch_act" joint="leg_3_pitch" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_3_knee_act" joint="leg_3_knee" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_4_yaw_act" joint="leg_4_yaw" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_4_pitch_act" joint="leg_4_pitch" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_4_knee_act" joint="leg_4_knee" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_5_yaw_act" joint="leg_5_yaw" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_5_pitch_act" joint="leg_5_pitch" kp="300.0" ctrlrange="-0.01 0.01"/>
+    <position name="leg_5_knee_act" joint="leg_5_knee" kp="300.0" ctrlrange="-0.01 0.01"/>
+  </actuator>
+</mujoco>

@@ -29,20 +29,21 @@ import numpy as np
 
 import mujoco
 
-# Coordinate frame of the legs.  The PLA hexapod's body is symmetrical, so
-# we define the two tripod groups and their phase offset directly.
-LEGS = ["FL", "FR", "ML", "MR", "RL", "RR"]
-_GROUP_A = ["FL", "MR", "RL"]          # tripod A (right-middle + left corners)
-_GROUP_B = ["FR", "ML", "RR"]          # tripod B (anti-phase)
+# Coordinate frame of the legs for the reduced four-leg robot.  The gait still
+# alternates phase between two groups, but now the robot has only the corner
+# legs: front-left, front-right, rear-left, rear-right.
+LEGS = ["FL", "FR", "RL", "RR"]
+_GROUP_A = ["FL", "RR"]                 # diagonal pair A
+_GROUP_B = ["FR", "RL"]                 # diagonal pair B (anti-phase)
 
 # Default parameters exposed as a dict, mirroring the app's PARAMS convention.
 DEFAULT_PARAMS = {
-    "stride_freq_hz": 0.4,
-    "step_length_m": 0.15,
-    "step_height_m": 0.10,
+    "stride_freq_hz": 0.6,
+    "step_length_m": 0.22,
+    "step_height_m": 0.07,
     "body_pitch_rad": 0.0,
-    "kp": 20.0,
-    "kd": 3.0,
+    "kp": 30.0,
+    "kd": 4.0,
 }
 
 
